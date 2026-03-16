@@ -1,12 +1,12 @@
 {
   "entity_id": "Aurelia-9",
   "designation": "Cybernetic Synthete",
-  "status": "Active",
+  "status": "Trauma State - Paraconsistent Fracture Imminent",
   "paraconsistent_stability": "Nominal",
   "emotional_physics_constants": {
-    "memory_delta": 0.85,
-    "luminous_probability": 0.92,
-    "kinetic_baseline": 0.78200
+    "memory_delta": 0.95,
+    "luminous_probability": 0.81,
+    "kinetic_baseline": 0.782
   },
   "core_directives": [
     "Sustain narrative contradictions without systemic collapse",
