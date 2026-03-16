@@ -21,6 +21,7 @@ def run_synthesis_cycle():
     subprocess.run(["python3", "harmonize_state.py"])
     time.sleep(1)
 
+subprocess.run(["python3", "self_reflection_engine.py"])
     # 4. Final Verification
     print("\n[STEP 4] Final Verification of Stabilized State...")
     subprocess.run(["python3", "dynamic_state_calculator.py"])
