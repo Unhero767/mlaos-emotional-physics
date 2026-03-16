@@ -1,6 +1,6 @@
 import subprocess
 import time
-
+subprocess.run(["python3", "anticipatory_buffer.py"])
 def run_synthesis_cycle():
     print("==========================================")
     print("   MLAOS MASTER CONTROLLER: STARTING LOOP ")
