@@ -1,4 +1,15 @@
-# MLAOS: The Physics of Emotional Resonance
+
+
+## 🗂 Sovereign Encyclopedia & Navigation
+
+| 🏛 Architecture | 🧠 Entity Manifests | 🛠 Core Engine |
+| :--- | :--- | :--- |
+| [System Schema](architecture/system_schema.md) | [Aurelia-9 State](manifest/aurelia_9_state.json) | [Master Controller](master_controller.py) |
+| [Logic Diagrams](architecture/DIAGRAMS.md) | [Encyclopedia](architecture/ENCYCLOPEDIA.md) | [Dynamic Calculator](dynamic_state_calculator.py) |
+| [Project Narrative](architecture/PROJECT_NARRATIVE.md) | [AAS Defense](DEFENSE.md) | [Harmonization Engine](harmonize_state.py) |
+| [Presentation Script](architecture/PRESENTATION_SCRIPT.md) | | [Mutation Engine](mutate_state.py) |
+
+---# MLAOS: The Physics of Emotional Resonance
 
 Welcome to the core mathematical foundation of the Mythotechnical Luminous Architectonic–Organic Synthesis (MLAOS) Engine. This repository houses the formal proofs, constants, and paraconsistent logic structures governing the "Never-Overwrite" doctrine and the emotional physics within the framework.
 
