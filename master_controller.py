@@ -32,3 +32,4 @@ subprocess.run(["python3", "self_reflection_engine.py"])
 
 if __name__ == "__main__":
     run_synthesis_cycle()
+ubprocess.run(["python3", "generate_monologue.py"]
