@@ -111,3 +111,36 @@ public partial struct HardnessTransferSystem : ISystem
         ecb.Dispose();
     }
 }
+
+// ============================================================================
+// III. ASYNCHRONOUS EVENT BUS (The Temporal Loom)
+// Prevents main thread blocking during high-entropy events (The Wilderness).
+// Transfer request is decoupled from execution via a temporary request entity.
+// ============================================================================
+
+// EVENT BUS PRODUCER: Issues the transfer request from the "Wilderness"
+public void RequestHardnessTransfer(Entity wall, Entity cloak, float qScore)
+{
+    // Create a temporary request entity — intent is decoupled from execution
+    Entity requestEntity = entityManager.CreateEntity();
+
+    entityManager.AddComponentData(requestEntity, new TransferRequestComponent
+    {
+        TargetEntity = cloak,
+        Timestamp    = Time.ElapsedSeconds,
+        Q_Score      = qScore  // Passed from SAGA Analyzer
+    });
+
+    // Attach HardnessComponent reference to the source (wall)
+    // HardnessTransferSystem will consume and migrate this on next frame tick
+    entityManager.AddComponentData(requestEntity, new HardnessComponent
+    {
+        Value    = entityManager.GetComponentData<HardnessComponent>(wall).Value,
+        IsLocked = false,  // Unlocked for migration — will be re-locked on target
+        SourceID = wall    // Preserves Never-Overwrite audit trail
+    });
+
+    // The Temporal Loom: requestEntity persists until HardnessTransferSystem
+    // processes it on the next OnUpdate tick, then destroys it via ECB.
+    // This ensures Wilderness events never directly mutate Anchor-Node archetypes.
+}
