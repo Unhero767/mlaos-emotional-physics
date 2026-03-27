@@ -1,43 +1,19 @@
-import json
-import jsonschema
-import sys
-import logging
+from infer_schema import MagisterialValidator
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - [EPISTEMIC-GATE] - %(levelname)s - %(message)s')
+class SAGAAgent:
+    def __init__(self, agent_id: str):
+        self.agent_id = agent_id
+        self.validator = MagisterialValidator()
 
-def validate_codex_entry(payload_path, schema_path="codex_schema.json"):
-    """
-    Acts as the VARO firewall. Rejects any LLM generation that violates ◦A consistency.
-    """
-    try:
-        with open(schema_path, 'r') as file:
-            schema = json.load(file)
-        with open(payload_path, 'r') as file:
-            payload = json.load(file)
-            
-        jsonschema.validate(instance=payload, schema=schema)
-        logging.info(f"Artifact {payload.get('artifact_id')} passed the Aletheia Gate. Q-metric stable.")
-        return True
+    def process_narrative_vector(self, raw_data: dict):
+        """Routes incoming conceptual data through the VOID_LUNG."""
+        print(f"[{self.agent_id}] Ingesting narrative vector...")
+        is_valid = self.validator.inhale_variable(raw_data)
         
-    except jsonschema.exceptions.ValidationError as err:
-        logging.error(f"Metalogical Burn Detected (Hallucination): {err.message}")
-        return False
-    except FileNotFoundError as err:
-        logging.error(f"Missing Architectural File: {err}")
-        return False
-    except Exception as e:
-        logging.error(f"Systemic Fracture: {e}")
-        return False
+        if is_valid:
+            print(f"[{self.agent_id}] Vector anchored to Manifold. ◦A maintained.")
+        else:
+            print(f"[{self.agent_id}] Vector rejected. Awaiting Kintsugi stabilization.")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        logging.warning("No payload provided. Syntax: python3 saga_agent_module.py <payload.json>")
-        sys.exit(1)
-        
-    target_payload = sys.argv[1]
-    is_valid = validate_codex_entry(target_payload)
-    
-    if is_valid:
-        sys.exit(0)
-    else:
-        sys.exit(1)
+    print("SAGA Agent Module ready for generation cycles.")
