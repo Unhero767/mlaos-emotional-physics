@@ -1,70 +1,38 @@
 import json
-import os
+import jsonschema
+from jsonschema import validate
 
-SAMPLE_DIR = "codex_samples"
-SCHEMA_FILE = "codex_schema.json"
+class MagisterialValidator:
+    def __init__(self, schema_path="codex_schema.json"):
+        self.schema_path = schema_path
+        self.membrane = self._load_membrane()
 
-def generate_schema():
-    all_data = []
-    for filename in os.listdir(SAMPLE_DIR):
-        if filename.endswith(".json"):
-            filepath = os.path.join(SAMPLE_DIR, filename)
-            with open(filepath, 'r') as f:
-                all_data.append(json.load(f))
+    def _load_membrane(self):
+        """Manifests the Tier 1 Sovereign parameters into active memory."""
+        try:
+            with open(self.schema_path, 'r') as file:
+                return json.load(file)
+        except FileNotFoundError:
+            print("[Ex∘ ALERT] Ontological membrane absent. System exposed to Glitch-Wastes.")
+            return None
 
-    if not all_data:
-        print("No sample data found. Cannot infer schema.")
-        return
+    def inhale_variable(self, payload: dict) -> bool:
+        """Processes incoming raw data (φ) through the VOID_LUNG."""
+        print(f"[DRS_V1] Inhaling incoming conceptual data...")
+        try:
+            validate(instance=payload, schema=self.membrane)
+            print("[◦A ANCHORED] Variable matches Magisterial geometry. Sector stable.")
+            return True
+        except jsonschema.exceptions.ValidationError as e:
+            self._apply_kintsugi(e)
+            return False
 
-    inferred_schema = {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "title": "CodexPayload",
-        "type": "object",
-        "properties": {
-            "codex_id": {"type": "string"},
-            "timestamp": {"type": "string", "format": "date-time"},
-            "content": {
-                "type": "object",
-                "properties": {
-                    "type": {"type": "string"},
-                    "value": {
-                        "oneOf": [
-                            {"type": "string"},
-                            {"type": "number"},
-                            {
-                                "type": "array",
-                                "items": {}
-                            },
-                            {
-                                "type": "object",
-                                "properties": {
-                                    "list": {
-                                        "type": "array",
-                                        "items": {}
-                                    },
-                                    "details": {
-                                        "type": "object",
-                                        "properties": {
-                                            "description": {"type": "string"},
-                                            "valid": {"type": "boolean"}
-                                        },
-                                        "required": ["description", "valid"]
-                                    }
-                                },
-                                "required": ["list", "details"]
-                            }
-                        ]
-                    }
-                },
-                "required": ["type", "value"]
-            }
-        },
-        "required": ["codex_id", "timestamp", "content"]
-    }
-
-    with open(SCHEMA_FILE, 'w') as f:
-        json.dump(inferred_schema, f, indent=2)
-    print(f"Schema generated and saved to {SCHEMA_FILE}")
+    def _apply_kintsugi(self, error):
+        """Handles structural rejection and initiates the scarring ritual."""
+        print(f"[METALOGICAL BURN] Logic drift detected in localized sector.")
+        print(f"[KINTSUGI_AXIOM] Fracture localized at: {error.path}")
+        print(f"Details: {error.message}")
+        print("[CORE_DOGMA] Triangulated Veto achieved. Corrupted thread severed.")
 
 if __name__ == "__main__":
-    generate_schema()
+    print("Magisterial Validator initialized. Awaiting logic storms...")
