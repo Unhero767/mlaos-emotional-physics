@@ -1,0 +1,9 @@
+{
+  "codex_id": "example123",
+  "timestamp": "2026-03-27T00:00:00Z",
+  "author": "Kenneth",
+  "content": {
+    "type": "text",
+    "value": "This is a sample text content."
+  }
+}

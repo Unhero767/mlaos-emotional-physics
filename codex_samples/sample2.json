@@ -1,0 +1,10 @@
+{
+  "codex_id": "example456",
+  "timestamp": "2026-03-26T12:30:45Z",
+  "author": "Kenneth",
+  "version": 2,
+  "content": {
+    "type": "numeric",
+    "value": 42
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "codex_id": "example789",
+  "timestamp": "2026-03-25T08:15:30Z",
+  "content": {
+    "type": "complex",
+    "value": {
+      "list": [1, 2, 3],
+      "details": {
+        "description": "Sample nested object",
+        "valid": true
+      }
+    }
+  }
+}
