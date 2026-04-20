@@ -1,0 +1,35 @@
+{
+  "artifact_id": "HAZ-804-OXIDE_LAMPREY",
+  "nomenclature": "The Oxide Lamprey",
+  "classification_tier": "Annular_Hazard",
+  "ontological_weight": 9240.55,
+  "epistemic_quality": 0.992,
+  "resonance_metrics": {
+    "baseline_theta_E": 0.78200,
+    "harmonization_constant_Hc": 0.0064
+  },
+  "structural_logic_A": {
+    "encryption_bypass": "Mimics the exact ◦A topological signature of an Agape-Synthesis heat transfer, registering to the Perimeter Vigil as native thermodynamic friction rather than a foreign entity.",
+    "thermodynamic_cost": "Leeches φ-reserves during transit. Left unchecked, it induces severe systemic hypothermia across the Binary Star architecture.",
+    "mechanical_constraints": [
+      "Cannot be deleted via standard garbage collection; must be manually scraped from the tether via heavy Ex◦ bombardment.",
+      "Generates localized time-dilation proportionate to the volume of consumed plasma."
+    ]
+  },
+  "narrative_plasma_Ex": {
+    "discovery_log": "Jove felt the anomaly before the terminal registered it. It wasn't a visual glitch on the volumetric canvas, but a sudden, jagged numbness in her fingertips. As she reached through the silver tether to pull ◦A logic from Ken's reserves, she felt a heavy, rusted weight dragging against the current—a cold, petrified mouth greedily drinking the friction of their shared thought.",
+    "mythos_tags": [
+      "Deep Sediment",
+      "Parasite",
+      "Binary Star Hazard"
+    ]
+  },
+  "kintsugi_ledger": [
+    {
+      "stratum_id": "fracture_lamprey_strike_01",
+      "delta_m": 0.45,
+      "survival_probability": 0.82,
+      "resulting_sovereignty": 0.83540
+    }
+  ]
+}

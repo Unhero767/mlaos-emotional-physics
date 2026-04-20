@@ -1,0 +1,91 @@
+version: '3.9'
+
+services:
+  # Main physics engine (production)
+  engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlaos-physics-prod
+    restart: unless-stopped
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python master_controller.py
+    networks:
+      - mlaos-physics-network
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4G
+        reservations:
+          cpus: '2'
+          memory: 2G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  # Batch test runner (periodic via cron/scheduler)
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlaos-physics-test-prod
+    restart: unless-stopped
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python -m pytest -v --cov=src tests/
+    networks:
+      - mlaos-physics-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    profiles:
+      - test
+
+  # Stress testing (periodic validation)
+  stress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlaos-physics-stress-prod
+    restart: unless-stopped
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python paraconsistent_stress_test.py
+    networks:
+      - mlaos-physics-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    profiles:
+      - stress
+
+networks:
+  mlaos-physics-network:
+    driver: bridge

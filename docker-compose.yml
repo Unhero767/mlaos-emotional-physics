@@ -1,0 +1,68 @@
+version: '3.9'
+
+services:
+  # Physics engine and tests
+  engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlaos-physics-dev
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Bind mount source code for live reload
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./stress_tests:/app/stress_tests
+      - ./master_controller.py:/app/master_controller.py
+      - ./dynamic_state_calculator.py:/app/dynamic_state_calculator.py
+      - ./harmonize_state.py:/app/harmonize_state.py
+      - ./mutate_state.py:/app/mutate_state.py
+      - ./paraconsistent_stress_test.py:/app/paraconsistent_stress_test.py
+      - ./requirements.txt:/app/requirements.txt
+    # Run master controller by default (interactive)
+    command: python master_controller.py
+    networks:
+      - mlaos-physics-network
+
+  # Test runner (separate service, on demand)
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlaos-physics-test
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./tests:/app/tests
+      - ./src:/app/src
+      - ./stress_tests:/app/stress_tests
+    command: python -m pytest -v --cov=src tests/
+    networks:
+      - mlaos-physics-network
+    profiles:
+      - test
+
+  # Stress test runner (separate service, on demand)
+  stress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlaos-physics-stress
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./stress_tests:/app/stress_tests
+      - ./src:/app/src
+    command: python paraconsistent_stress_test.py
+    networks:
+      - mlaos-physics-network
+    profiles:
+      - stress
+
+networks:
+  mlaos-physics-network:
+    driver: bridge

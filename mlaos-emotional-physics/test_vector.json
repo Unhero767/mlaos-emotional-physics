@@ -1,0 +1,16 @@
+{
+  "tier_3_sub_lexical": {
+    "resonance_frequency": 0.85,
+    "thermodynamic_potential": 12.5,
+    "void_lung_capacity": 50
+  },
+  "tier_2_syntactic": {
+    "chrono_anchor_id": "ANCHOR-99XRAY01",
+    "causality_vectors": ["PRE_SCHISM_STASIS", "LOGIC_STORM_OMEGA"],
+    "q_baseline": 0.92
+  },
+  "tier_1_magisterial": {
+    "kintsugi_scar_index": 1.0,
+    "agape_synthesis_active": true
+  }
+}
